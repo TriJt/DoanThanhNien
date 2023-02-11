@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+// csdl admin
 const userSchema = new Schema(
   {
     HoTen: {
@@ -29,6 +30,7 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+// csdl sinh viên đăng kí
 const DangKySchema = new Schema(
   {
     HoTen: {
@@ -52,6 +54,7 @@ const DangKySchema = new Schema(
   { timestamps: true }
 );
 
+// csdl sự kiện
 const SuKienSchema = new Schema(
   {
     TenSuKien: {
@@ -65,6 +68,9 @@ const SuKienSchema = new Schema(
     },
     Mota: {
       type: String,
+    },
+    HinhAnh: {
+      type: [String],
     },
     Diadiem: {
       type: String,

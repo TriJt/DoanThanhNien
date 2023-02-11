@@ -6,12 +6,16 @@ import axios from "axios";
 import FormEvents from "../components/FormEvent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdViewHeadline } from "react-icons/md";
+import { Avatar } from "@mui/material";
+import ListUser from "../components/ListUser";
 
 export default function Quanly() {
   const [rowId, setRowId] = useState("");
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openList, setOpenList] = useState(false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,13 +61,37 @@ export default function Quanly() {
     );
   };
 
+  const ViewUser = ({ params }) => {
+    return (
+      <div className="save">
+        <button
+          className="button-save"
+          onClick={() => {
+            setOpenList(true);
+            setName(params.row.TenSuKien);
+          }}
+        >
+          <MdViewHeadline className="icon-save" />
+        </button>
+      </div>
+    );
+  };
+
   // state columns of table
   const columns = useMemo(
     () => [
       {
+        field: "HinhAnh",
+        headerName: "Hình ảnh",
+        width: 80,
+        renderCell: (params) => <Avatar src={params.row.HinhAnh[0]} />,
+        sortable: false,
+        filterable: false,
+      },
+      {
         field: "TenSuKien",
         headerName: "Tên Sự Kiện",
-        width: 300,
+        width: 350,
         editable: true,
       },
       {
@@ -87,7 +115,7 @@ export default function Quanly() {
       {
         field: "Diadiem",
         headerName: "Địa điểm",
-        width: 200,
+        width: 120,
         editable: true,
       },
       {
@@ -99,10 +127,18 @@ export default function Quanly() {
 
       {
         field: "delete",
-        width: 150,
-        headerName: "Delete",
+        width: 80,
+        headerName: "Xóa",
         type: "actions",
         renderCell: (params) => <Delete {...{ params, rowId, setRowId }} />,
+        editable: true,
+      },
+      {
+        field: "view",
+        width: 80,
+        headerName: "Danh sách",
+        type: "actions",
+        renderCell: (params) => <ViewUser {...{ params, rowId, setRowId }} />,
         editable: true,
       },
     ],
@@ -114,6 +150,11 @@ export default function Quanly() {
       <ToastContainer />
       <FormEvents open={open} onClose={() => setOpen(false)} />
       <Navbar />
+      <ListUser
+        openList={openList}
+        onCloseList={() => setOpenList(false)}
+        ten={name}
+      />
       <div className="container-quanly">
         <div className="header-quanly">
           <span>Phần quản lý của quản trị viên </span>
@@ -122,7 +163,6 @@ export default function Quanly() {
               setOpen(true);
             }}
           >
-            {" "}
             Thêm sự kiện
           </button>
         </div>

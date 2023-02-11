@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function FormEvents({ open, onClose }) {
+  const [files, setFiles] = useState("");
   // khai báo biến input
   const [inputField, setInputField] = useState({
     TenSuKien: "",
@@ -20,6 +21,7 @@ export default function FormEvents({ open, onClose }) {
     NgayDienRaErr: "",
     MotaErr: "",
     DiadiemErr: "",
+    HinhanhErr: "",
   });
 
   const InputHandler = (e) => {
@@ -35,6 +37,7 @@ export default function FormEvents({ open, onClose }) {
         NgayDienRaErr: "",
         MotaErr: "",
         DiadiemErr: "",
+        HinhanhErr: "",
       });
       setInputField({
         TenSuKien: "",
@@ -92,6 +95,13 @@ export default function FormEvents({ open, onClose }) {
         DiadiemErr: "Bạn chưa nhập địa điểm diễn ra!!",
       }));
     }
+    if (files === "") {
+      formValid = false;
+      setErrField((prevState) => ({
+        ...prevState,
+        HinhanhErr: "Bạn chưa chọn hình ảnh cho sự kiện!!",
+      }));
+    }
 
     clearInput();
     return formValid;
@@ -99,6 +109,20 @@ export default function FormEvents({ open, onClose }) {
 
   // hàm submit
   const handleSubmit = async () => {
+    const list = await Promise.all(
+      Object.values(files).map(async (file) => {
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "social0722");
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/johnle/image/upload",
+          data
+        );
+        const { url } = uploadRes.data;
+        return url;
+      })
+    );
+
     if (validForm()) {
       const data = {
         TenSuKien: inputField.TenSuKien,
@@ -107,6 +131,7 @@ export default function FormEvents({ open, onClose }) {
         NgayDienRa: inputField.NgayDienRa,
         Mota: inputField.Mota,
         Diadiem: inputField.Diadiem,
+        HinhAnh: list,
       };
       try {
         const response = await axios.post(
@@ -205,9 +230,44 @@ export default function FormEvents({ open, onClose }) {
             {errField.DiadiemErr.length > 0 && (
               <span className="error">{errField.DiadiemErr} </span>
             )}
+          </div>
+          <div className="modal-image">
+            <div className="image-banner">
+              <div className="btn-service">
+                <label htmlFor="file" className="button-dangki margin">
+                  Chọn hình
+                  <input
+                    type="file"
+                    id="file"
+                    multiple
+                    style={{ display: "none" }}
+                    onChange={(e) => setFiles(e.target.files)}
+                  ></input>
+                </label>
+                <label
+                  className="button-dangki delete-but"
+                  onClick={() => setFiles(null)}
+                >
+                  Xóa
+                </label>
+              </div>
+              {files ? (
+                <img
+                  src={URL.createObjectURL(files[0])}
+                  alt=""
+                  className="banner-image"
+                />
+              ) : (
+                <div className="no-image-banner">
+                  <span className="header-service">Hình ảnh sự kiện</span>
+                  {errField.HinhanhErr.length > 0 && (
+                    <span className="error">{errField.HinhanhErr} </span>
+                  )}
+                </div>
+              )}
+            </div>
             <button className="button-dangki" onClick={handleSubmit}>
-              {" "}
-              THÊM
+              THÊM SỰ KIỆN
             </button>
           </div>
         </div>

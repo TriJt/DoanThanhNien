@@ -4,7 +4,7 @@ import {
   DeleteEvent,
   GetAdmin,
   GetEvent,
-  GetEventByName,
+  GetEventById,
   GetRandomEvent,
   GetUserForEvent,
   LoginForAdmin,
@@ -39,7 +39,7 @@ router.get("/event", GetEvent);
 router.get("/random", GetRandomEvent);
 
 // hiển thị từng sự kiện theo tên
-router.get("/:TenSuKien", GetEventByName);
+router.get("/:id", GetEventById);
 
 // hiển thị danh sách đăng ký theo từng sự kiện
 router.post("/DanhSach", GetUserForEvent);

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Quanly from "./pages/Quanly";
 import Register from "./pages/Register";
+import SingleEvent from "./pages/SingleEvent";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/quanly" element={<Quanly />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/:id" element={<SingleEvent />} />
       </Routes>
     </Router>
   );

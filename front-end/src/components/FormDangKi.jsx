@@ -5,8 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function FormDangKi({ open, onClose, name, id }) {
-  const [data, setData] = useState([]);
-
   // khai báo biến input
   const [inputField, setInputField] = useState({
     HoTen: "",
@@ -142,11 +140,11 @@ export default function FormDangKi({ open, onClose, name, id }) {
     open && (
       <div className="overlay">
         <ToastContainer />
-        <div className="modalContainer">
+        <div className="modalContainer form-dangki">
           <p className="closeBtn" onClick={onClose}>
             <IoIosCloseCircleOutline />
           </p>
-          <div className="modalInformation">
+          <div className="modalInformation dangki-info">
             <h3 className="title-value"> ĐĂNG KÝ SỰ KIỆN</h3>
             <h4 className="ten-sukien"> {name}</h4>
             <div className="items-value">
@@ -160,6 +158,9 @@ export default function FormDangKi({ open, onClose, name, id }) {
                 name="HoTen"
               />
             </div>
+            {errField.HoTenErr.length > 0 && (
+              <span className="error">{errField.HoTenErr} </span>
+            )}
             <div className="items-value">
               <span className="icon-value">MSSV:</span>
               <input
@@ -171,6 +172,9 @@ export default function FormDangKi({ open, onClose, name, id }) {
                 name="MSSV"
               />
             </div>
+            {errField.MSSVErr.length > 0 && (
+              <span className="error">{errField.MSSVErr} </span>
+            )}
             <div className="items-value">
               <span className="icon-value">Lớp:</span>
               <input
@@ -182,6 +186,9 @@ export default function FormDangKi({ open, onClose, name, id }) {
                 name="Lop"
               />
             </div>
+            {errField.LopErr.length > 0 && (
+              <span className="error">{errField.LopErr} </span>
+            )}
             <div className="items-value">
               <span className="icon-value">Khóa:</span>
               <input
@@ -193,6 +200,9 @@ export default function FormDangKi({ open, onClose, name, id }) {
                 name="Khoa"
               />
             </div>
+            {errField.KhoaErr.length > 0 && (
+              <span className="error">{errField.KhoaErr} </span>
+            )}
             <div className="items-value">
               <span className="icon-value">Email:</span>
               <input
@@ -204,6 +214,9 @@ export default function FormDangKi({ open, onClose, name, id }) {
                 name="Email"
               />
             </div>
+            {errField.EmailErr.length > 0 && (
+              <span className="error">{errField.EmailErr} </span>
+            )}
             <button className="button-dangki" onClick={handleSubmit}>
               {" "}
               ĐĂNG KÝ

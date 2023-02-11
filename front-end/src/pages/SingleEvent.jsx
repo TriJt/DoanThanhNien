@@ -5,8 +5,9 @@ import axios from "axios";
 import FormDangKi from "../components/FormDangKi";
 import Sidebar from "../components/Sidebar";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useParams } from "react-router-dom";
 
-export default function Home() {
+export default function SingleEvent() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -14,11 +15,12 @@ export default function Home() {
   const [event, setEvent] = useState([]);
   const [nameEvent, setNameEvent] = useState();
   const [idEvent, setIdEvent] = useState();
+  const { id } = useParams();
 
   // hiển thị sự kiện tại trang chính
   useEffect(() => {
     const loadEvent = async () => {
-      const res = await axios.get("http://localhost:8800/api/user/random");
+      const res = await axios.get("http://localhost:8800/api/user/" + id);
       setEvent(res.data);
     };
     loadEvent();
@@ -58,36 +60,30 @@ export default function Home() {
       <Sidebar />
       <div className="main">
         <div className="left-main">
-          {event.map((event, index) => {
-            return (
-              <>
-                <div className="content-left" key={index}>
-                  <h1 className="ten-label">{event.TenSuKien} </h1>
-                  <div className="mota-label">{event.Mota}</div>
-                  <div className="time-div">
-                    Thời gian thực hiện : {event.NgayDienRa}
-                  </div>
-                  <div className="time-div">Địa điểm : {event.Diadiem}</div>
-                  <div className="time-div">
-                    Số lượng còn lại:{event.SoLuong}
-                  </div>
-                  <button
-                    className="button-dangki"
-                    onClick={() => {
-                      setOpen(true);
-                      setNameEvent(event.TenSuKien);
-                      setIdEvent(event._id);
-                    }}
-                  >
-                    Đăng kí tham gia
-                  </button>
-                </div>
-                <div className="content-right">
-                  <img src={event.HinhAnh} alt="" />
-                </div>
-              </>
-            );
-          })}
+          <>
+            <div className="content-left">
+              <h1 className="ten-label">{event.TenSuKien} </h1>
+              <div className="mota-label">{event.Mota}</div>
+              <div className="time-div">
+                Thời gian thực hiện : {event.NgayDienRa}
+              </div>
+              <div className="time-div">Địa điểm : {event.Diadiem}</div>
+              <div className="time-div">Số lượng còn lại:{event.SoLuong}</div>
+              <button
+                className="button-dangki"
+                onClick={() => {
+                  setOpen(true);
+                  setNameEvent(event.TenSuKien);
+                  setIdEvent(id);
+                }}
+              >
+                Đăng kí tham gia
+              </button>
+            </div>
+            <div className="content-right">
+              <img src={event.HinhAnh} alt="" />
+            </div>
+          </>
         </div>
 
         <div className="right-main">

@@ -91,6 +91,7 @@ export const CreateEvent = async (req, res) => {
       NgayDienRa: input.NgayDienRa,
       Mota: input.Mota,
       Diadiem: input.Diadiem,
+      HinhAnh: input.HinhAnh,
     });
     const save = await newEvent.save();
     res.status(200).json(save);
@@ -126,9 +127,9 @@ export const GetEvent = async (req, res) => {
 };
 
 // hiển thị sự kiện theo tên sự kiện
-export const GetEventByName = async (req, res) => {
+export const GetEventById = async (req, res) => {
   try {
-    const event = await SuKien.find(req.params.TenSuKien);
+    const event = await SuKien.findById(req.params.id);
     res.status(200).json(event);
   } catch (error) {
     res.status(500).json("Hiển thị sự kiện không thành công");

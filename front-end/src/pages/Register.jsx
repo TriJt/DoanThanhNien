@@ -223,10 +223,10 @@ export default function Register() {
               name="Khoa"
             />
           </div>
+
           {errField.KhoaErr.length > 0 && (
             <span className="error">{errField.KhoaErr} </span>
           )}
-
           <div className="item-login">
             <span className="icon">
               <BsFillPersonDashFill />

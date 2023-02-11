@@ -92,3 +92,21 @@
 .button-view:focus {
   outline: none;
 }
+
+.form-list {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-list span {
+  color: orange;
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin: 20px;
+}
+.form-list h4 {
+  margin-left: 20px;
+}
