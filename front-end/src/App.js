@@ -5,6 +5,7 @@ import Login from "./pages/Login.jsx";
 import Quanly from "./pages/Quanly";
 import Register from "./pages/Register";
 import SingleEvent from "./pages/SingleEvent";
+import Sanpham from "./pages/Sanpham";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/quanly" element={<Quanly />} />
         <Route path="/register" element={<Register />} />
         <Route path="/:id" element={<SingleEvent />} />
+        <Route path="/sanpham" element={<Sanpham />} />
       </Routes>
     </Router>
   );

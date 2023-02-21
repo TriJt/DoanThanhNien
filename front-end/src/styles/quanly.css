@@ -20,7 +20,13 @@
   text-transform: uppercase;
   border-bottom: 4px solid orange;
 }
-.header-quanly button {
+.div-button {
+  width: 140px;
+  display: flex;
+  justify-content: space-between;
+}
+.header-quanly button,
+.button-navbar {
   border: none;
   border-radius: 5px;
   font-weight: 500;
@@ -31,7 +37,8 @@
   cursor: pointer;
   transition: all 0.5s ease-in-out;
 }
-.header-quanly button:hover {
+.header-quanly button:hover,
+.button-navbar:hover {
   transform: scale(1.2);
   color: white;
 }

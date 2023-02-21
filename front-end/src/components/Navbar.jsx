@@ -11,9 +11,26 @@ export default function Navbar() {
           className="logo"
         />
       </div>
-      <div className="center-header">ĐOÀN THANH NIÊN</div>
+      <div className="center-header">
+        <Link to={"/"} style={{ textDecoration: "none", color: "blue" }}>
+          ĐOÀN THANH NIÊN
+        </Link>
+      </div>
       <div className="right-header">
-        <Link to={"/login"} style={{ textDecoration: "none" }}></Link>
+        <div className="div-button">
+          <Link
+            to={"/quanly"}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <button className="button-navbar">Sự kiện</button>
+          </Link>
+          <Link
+            to={"/sanpham"}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <button className="button-navbar">Sản phẩm</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

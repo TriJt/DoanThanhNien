@@ -10,72 +10,12 @@ import { MdDeleteOutline, MdViewHeadline } from "react-icons/md";
 import { Avatar } from "@mui/material";
 import ListUser from "../components/ListUser";
 
-export default function Quanly() {
+const Sanpham = () => {
   const [rowId, setRowId] = useState("");
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [openList, setOpenList] = useState(false);
   const [name, setName] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get("http://localhost:8800/api/user/event");
-      setData(res.data);
-    };
-
-    fetchData();
-  }, []);
-
-  // xóa sự kiện
-  const Delete = ({ params }) => {
-    const handleDelete = async () => {
-      const data = params.row._id;
-      const TenSuKien = params.row.TenSuKien;
-      const response = await axios.delete(
-        "http://localhost:8800/api/user/" + data,
-        TenSuKien
-      );
-
-      const res = await axios.get("http://localhost:8800/api/user/event");
-      setData(res.data);
-
-      const record = response.status;
-      if (record === 200) {
-        toast.success("Xóa sự kiện thành công!!");
-      } else {
-        toast.error("Xóa sự kiện thất bại!!");
-      }
-    };
-    return (
-      <div className="delete">
-        <button
-          className="button-delete"
-          onClick={() => {
-            if (window.confirm("Bạn có chắc chắn xóa sự kiện này không?"))
-              handleDelete();
-          }}
-        >
-          <MdDeleteOutline className="icon-delete" />
-        </button>
-      </div>
-    );
-  };
-
-  const ViewUser = ({ params }) => {
-    return (
-      <div className="save">
-        <button
-          className="button-save"
-          onClick={() => {
-            setOpenList(true);
-            setName(params.row.TenSuKien);
-          }}
-        >
-          <MdViewHeadline className="icon-save" />
-        </button>
-      </div>
-    );
-  };
 
   // state columns of table
   const columns = useMemo(
@@ -125,26 +65,24 @@ export default function Quanly() {
         editable: true,
       },
 
-      {
-        field: "delete",
-        width: 80,
-        headerName: "Xóa",
-        type: "actions",
-        renderCell: (params) => <Delete {...{ params, rowId, setRowId }} />,
-        editable: true,
-      },
-      {
-        field: "view",
-        width: 80,
-        headerName: "Danh sách",
-        type: "actions",
-        renderCell: (params) => <ViewUser {...{ params, rowId, setRowId }} />,
-        editable: true,
-      },
+      //   {
+      //     field: "delete",
+      //     width: 80,
+      //     headerName: "Xóa",
+      //     type: "actions",
+      //     renderCell: (params) => <Delete {...{ params, rowId, setRowId }} />,
+      //     editable: true,
+      //   },
+      //   {
+      //     field: "view",
+      //     headerName: "Danh sách",
+      //     type: "actions",
+      //     renderCell: (params) => <ViewUser {...{ params, rowId, setRowId }} />,
+      //     editable: true,
+      //   },
     ],
     [rowId]
   );
-
   return (
     <div className="container">
       <ToastContainer />
@@ -157,13 +95,13 @@ export default function Quanly() {
       />
       <div className="container-quanly">
         <div className="header-quanly">
-          <span>Quản lý sự kiện </span>
+          <span>quản lý sản phẩm</span>
           <button
             onClick={() => {
               setOpen(true);
             }}
           >
-            Thêm sự kiện
+            Thêm sản phẩm
           </button>
         </div>
         <div className="main-quanly">
@@ -179,4 +117,6 @@ export default function Quanly() {
       </div>
     </div>
   );
-}
+};
+
+export default Sanpham;

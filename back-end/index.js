@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import userRouter from "./src/routers/userRouter.js";
+import buyRouter from "./src/routers/buyRouter.js";
 
 const app = express();
 dotenv.config();
@@ -30,6 +31,9 @@ app.use(morgan("common"));
 
 // router for user
 app.use("/api/user", userRouter);
+
+// router cho mua sản phẩm
+app.use("/api/product", buyRouter);
 
 app.listen(8800, () => {
   console.log("Server is running");

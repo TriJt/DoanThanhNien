@@ -82,7 +82,58 @@ const SuKienSchema = new Schema(
   { timestamps: true }
 );
 
+// csdl sản phẩm
+const SanPhamSchema = new Schema(
+  {
+    Ten: {
+      type: String,
+    },
+    Gia: {
+      type: Number,
+    },
+    SoluongBanDau: {
+      type: Number,
+    },
+    Soluong: {
+      type: Number,
+    },
+    HinhAnh: {
+      type: Number,
+    },
+  },
+  { timestamps: true }
+);
+
+// csdl đăng kí mua
+const MuaSchema = new Schema(
+  {
+    HoTen: {
+      type: String,
+    },
+    Lop: {
+      type: String,
+    },
+    Khoa: { type: String },
+
+    Email: {
+      type: String,
+    },
+    MSSV: {
+      type: String,
+    },
+    TenSanPham: {
+      type: String,
+    },
+    Soluong: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
 const User = mongoose.model("User", userSchema);
 const Dangky = mongoose.model("DangKy", DangKySchema);
 const SuKien = mongoose.model("Sukien", SuKienSchema);
-export { User, Dangky, SuKien };
+const SanPham = mongoose.model("San Pham", SanPhamSchema);
+const HoaDon = mongoose.model("Hoa Don", MuaSchema);
+export { User, Dangky, SuKien, SanPham, HoaDon };
